@@ -1,0 +1,15 @@
+{
+ "label": "Toca Boca World",
+ "package": "com.tocaboca.tocalifeworld",
+ "root": "/sdcard/Android/data/com.tocaboca.tocalifeworld/files",
+ "locations_dir": "active_state",
+ "_note": "Vse, co neni v exclude ani backup_only, se synchronizuje (i slozky, ktere pridaji nove verze hry).",
+ "exclude": [
+  "il2cpp", "contenttestfolder", "mediacache", "GAP", "Unity", "backtrace",
+  "DefaultSaveFiles", "content_cache.json"
+ ],
+ "backup_only": [
+  "accounts", ".cloud_storage", "transaction-log.txt", "QueryClient_PersistentStorage_*",
+  "playerprefs/unity.*", "playerprefs/backtrace-machine-id.json"
+ ]
+}

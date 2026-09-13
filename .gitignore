@@ -1,0 +1,9 @@
+# Local only: save backups (contain purchase tokens), device IDs, Google binaries
+store/
+devices.json
+platform-tools/
+for_claude.txt
+.claude_trash/
+
+__pycache__/
+*.tmp
