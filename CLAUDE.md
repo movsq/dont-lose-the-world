@@ -19,6 +19,10 @@ python tsync.py [--app toca] sync|status|backup [dev]|log [dev]|push SRC DST|res
 - `status`, `backup`, `log`, `devices`, `verify` and `doctor` never write to devices (`backup` may close the game).
 - `setup.bat` → `setup.ps1` bootstraps a new PC. It installs Python and Git via winget and downloads platform-tools, but only what's missing and only after asking. Then it runs `tsync.py doctor`. It must stay idempotent: a rerun with everything present must not prompt or download anything.
 - `setup.ps1` must be saved as UTF-8 **with BOM**, otherwise Windows PowerShell 5.1 garbles the Czech text.
+- `self-update.bat` is a self-contained cmd/PowerShell polyglot, so a user can bring just this one file. Line 1 runs everything after the `::PS` marker as PowerShell and ends with `exit /b`, which means cmd never reads further and the file can safely replace itself.
+  - It downloads the GitHub branch zip (no git needed) and copies only changed files.
+  - It never writes into `store/`, `devices.json`, `platform-tools/` or `.git`, and it refuses to run in a git checkout.
+  - To test it without the network, point `TSYNC_UPDATE_ZIP=<local zip>` at a zip laid out like GitHub's (`<repo>-main/...`).
 - `sync.bat` prefers `py -3` over `python`, because a winget or python.org install often leaves `python.exe` off PATH.
 - `find_git()` falls back to Git for Windows' default paths, for the same reason.
 - adb is the bundled `platform-tools/adb.exe`, set in `devices.json`. BlueStacks' own `HD-Adb.exe` (1.0.36) can't talk to USB devices.

@@ -50,23 +50,34 @@ Zařízení s `"ignore": true` se úplně přeskakuje (třeba telefon připojen�
 **Zařízení se poznávají podle Android ID**, ne podle adb jména (každý BlueStacks je `emulator-5554`).
 Nové zařízení nabídne `sync` pojmenovat. První sync nové dvojice nic nenavrhuje, směr vybíráš ty.
 
-## Přesun na jiné PC
+## Instalace a aktualizace: `self-update.bat`
+
+Stačí jeden soubor: [self-update.bat](https://github.com/movsq/dont-lose-the-world/raw/main/self-update.bat).
+Stáhni ho do prázdné složky a spusť (když leží jinde, třeba na ploše, nainstaluje se do podsložky
+`dont-lose-the-world`). Pro aktualizaci ho pusť znovu.
+
+- Stáhne nejnovější verzi z GitHubu (bez gitu) a přepíše **jen soubory, které se změnily**.
+- `store/`, `devices.json` a `platform-tools/` nikdy nepřepíše.
+- Pak spustí `setup.ps1`: zkontroluje Python, Git, adb, nastavení BlueStacks, zařízení, hru a zálohy.
+  Co chybí, nabídne doinstalovat (Python a Git přes winget, adb stáhne od Googlu). Když je vše
+  v pořádku, nic nemění. Po instalaci Pythonu nebo Gitu zavři okno a spusť ho ještě jednou.
+- Vývojovou kopii (složku s `.git`) nepřepíše, tu aktualizuj přes `git pull`.
+
+## Nové PC
 
 1. Nainstaluj Tocu v BlueStacks z Play Store **s účtem, na kterém jsou nákupy**, a jednou ji spusť.
    Nákupy se ověřují proti účtu, ze kterého byla hra nainstalovaná.
-2. Zkopíruj celou složku `dont-lose-the-world` (i se `store/`). Pak už používej jen tuhle kopii.
-3. Připoj tablet (potvrď na něm „Povolit ladění USB“) a spusť **`setup.bat`**.
-   Zkontroluje Python, Git, adb, nastavení BlueStacks, zařízení, hru a zálohy.
-   Co chybí, nabídne doinstalovat (Python a Git přes winget, adb stáhne od Googlu).
-   Když je vše v pořádku, nic nemění, takže ho jde pustit kdykoli znovu.
-   Po instalaci Pythonu nebo Gitu zavři okno a spusť ho ještě jednou.
+2. Připoj tablet (potvrď na něm „Povolit ladění USB“) a spusť `self-update.bat` (viz výš).
+3. Chceš-li si přenést i historii záloh, zkopíruj do nové složky `store/` ze starého PC.
+   Pak už používej jen jednu kopii.
 4. Spusť `sync.bat`: pojmenuj nový BlueStacks a při prvním syncu vyber **Tablet → nový PC**.
 
-Kontrola bez `setup.bat`: `python tsync.py doctor`.
+Kontrola kdykoli: `setup.bat`, nebo `python tsync.py doctor`.
 
 ## Soubory
 
 - `tsync.py` – celý nástroj (Python 3, bez knihoven navíc; potřebuje git a adb)
+- `self-update.bat` – instalace/aktualizace z GitHubu, pak spustí setup
 - `setup.bat` / `setup.ps1` – kontrola a doinstalování Pythonu, Gitu a adb
 - `apps/*.json` – profily aplikací (balíček, co se synchronizuje, co se jen zálohuje).
   Po změně výjimek v profilu ukáže první další sync konflikt (mění se otisk savu) – vyber směr ručně.
