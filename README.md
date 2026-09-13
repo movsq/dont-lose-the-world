@@ -90,3 +90,7 @@ Jen lokálně, nejsou v gitu (osobní data):
 ## Přidání další hry
 
 Nový soubor `apps/<jméno>.json` podle `apps/toca.json` a pak `python tsync.py --app <jméno> sync`.
+
+## Licence
+
+[MIT](LICENSE). Toca Boca World je ochranná známka Toca Boca AB; tento projekt s nimi nijak nesouvisí.
